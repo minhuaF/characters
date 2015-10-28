@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>字频</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<!--兼容移动-->
+		<meta name="author" content="minhuaf" />
+		<!--作者-->
+		<meta name="description" content="" />
+		<!--网页描述-->
+		<meta name="keywords" content="" />
+		<!--关键字-->
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<!--添加图标-->
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/page.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+		<!--[if lt IE 9]>  
+   			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>  
+		<![endif]-->
+
+	</head>
+
+	<body>
+		<nav class="nav2">
+			<div class="mh-container">
+				<div class="mh-verticalCenter">
+					<a href="index.html">
+						<img src="img/logo.png" />
+					</a>
+				</div>
+			</div>
+		</nav>
+		<nav class="nav1">
+			<div class="mh-container">
+				<div class="mh-verticalCenter">
+					<a href="javascript:history.go(-1);">
+						<img src="img/Back-32.png" />
+					</a>
+					<p>字频</p>
+				</div>
+			</div>
+		</nav>
+		<header>
+			<div class="pt50 ">
+			</div>
+		</header>
+
+		<ul class="breadcrumb mh-container mt30">
+			<li><a href="index.html">首页</a></li>
+			<li><a href="articleData.html">统计汉字</a></li>
+			<li><a href="">字频详情</a></li>
+			<li>
+				<a href="#"></a>
+			</li>
+		</ul>
+		<div class="mh-container mainbody" style="min-height: 400px;">
+			<header class="headerTitle">
+				<h2>字频详情</h2>
+				<p>Word frequency.Here we can know the characters in the article and how many .</p>
+			</header>
+			<section class="frequency">
+				<table border="" cellspacing="" cellpadding="">
+					<tr id="cnrate1">
+						<td>汉字</td>
+						<td>字频</td>
+						<td>出现频率</td>
+					</tr>
+					<tr id="biao">
+						<td><a href="" class="list-a"><span>(无)</span></a></td>
+						<td>0</td>
+						<td>0%</td>
+					</tr>
+				</table>
+			</section>
+
+		</div>
+		<footer class="mh-clearfix">
+			<div class="">
+				<div class="divAverage pb10">
+					<h2>友情链接</h2>
+					<p class=""><a href="https://dockunit.io/">DOCKUNIT官网</a></p>
+					<p><a href="http://www.liangshunet.com/websoft/ji.aspx">亮术网</a></p>
+				</div>
+				<div class="divAverage pb20">
+					<h2>我们用到的技术</h2>
+					<span><a href="">html</a></span>
+					<span><a href="">css</a></span>
+					<span><a href="">javascript</a></span>
+					<span><a href="">java</a></span>
+				</div>
+				<div class="divAverage pb20">
+					<h2>开发团队</h2>
+					<p><a href="">青桔柠檬</a></p>
+				</div>
+			</div>
+			<div class="list pb30 pt20">
+				<a href="">关于我们 |</a>
+				<a href="">服务条款 |</a>
+				<a href="">用户服务协议 |</a>
+				<a href="">广告服务 |</a>
+				<a href="">客服中心 |</a>
+				<a href="">网站导航</a>
+				<p class="">Copyright © 2015 Powered By QingJuNingMeng</p>
+			</div>
+		</footer>
+		<script type="text/javascript">
+			var aA = document.getElementsByClassName("list-a");
+			for (var i = 0; i < aA.length; i++) {
+				aA[i].onmousedown = function() {
+					this.style.backgroundColor = '#4cabd9';
+					this.style.color = '#ffffff';
+				}
+			}
+		</script>
+		<script type="text/javascript">
+		  function getMiddle(list, low, high) {  
+	           var tmp = [list[low*3],list[low*3+1],list[low*3+2]];    //数组的第一个作为中轴  
+	           while (low < high) {  
+	               while (low < high && parseInt(list[high*3+1]) < parseInt(tmp[1])) {  
+	                   high--;  
+	               }  
+	               list[low*3] = list[high*3];   //比中轴小的记录移到低端  
+	               list[low*3+1] = list[high*3+1];   //比中轴小的记录移到低端  
+	               list[low*3+2] = list[high*3+2];   //比中轴小的记录移到低端  
+	               while (low < high && parseInt(list[low*3+1]) > parseInt(tmp[1])) {  
+	                   low++;  
+	               }  
+	               list[high*3] = list[low*3];   //比中轴大的记录移到高端  
+	               list[high*3+1] = list[low*3+1];   //比中轴大的记录移到高端  
+	               list[high*3+2] = list[low*3+2];   //比中轴大的记录移到高端  
+	           }  
+	           list[low*3] = tmp[0];              //中轴记录到尾  
+	           list[low*3+1] = tmp[1];              //中轴记录到尾  
+	           list[low*3+2] = tmp[2];              //中轴记录到尾  
+	           return low;                   //返回中轴的位置  
+	       }
+	   	
+	   	function quickSort(list, low, high) {  
+	           if (low < high) {  
+	               var middle = getMiddle(list, low, high);  //将list数组进行一分为二  
+	               quickSort(list, low, middle - 1);        //对低字表进行递归排序  
+	               quickSort(list, middle + 1, high);       //对高字表进行递归排序  
+	           }  
+	       } 
+	   	
+	   	function quick(str) { 
+	           if (str.length > 0) {    //查看数组是否为空  
+	               quickSort(str, 0, str.length/3 - 1);  
+	           }  
+	       }		
+
+            window.onload=function(){
+                if(window.opener.join==null){
+                    //alert(join);
+                    return;
+                 }
+                //alert(window.opener.join);
+                var alist = window.opener.join.split(",");
+             /*    alert(alist[0]);
+                alert(alist[1]);
+                alert(alist[2]); */
+                //<td><a href="#" target="_blank" class="list-a">(无)</a></td>
+           
+                document.getElementById("biao").style.display="none";
+               /*  var str = "20320,2,你,27721,7,汉,21834,4,啊,21704,10,哈,12345,1,我";
+		    	var list = str.split(",");
+
+		    	alert("原来-->"+list.join()); 
+		         quick(list);  
+		    	alert("现在-->"+list.join()); */       
+               // quick(alist);
+               // alert(alist.join());   
+                for(var i=0;i<alist.length/3;i++){
+                	 var tr = document.createElement("tr");
+                     var td1 = document.createElement("td");
+                     var a = document.createElement("a");
+	                 a.setAttribute("class", "list-a");
+	                 a.setAttribute("href", "http://dict.baidu.com/s?wd="+alist[3*i+2]);
+	                 a.setAttribute("target", "_blank");
+
+	                 var span = document.createElement("span");
+	                 span.appendChild(document.createTextNode(alist[3*i+2]));
+	                 
+	                 a.appendChild(span);
+                     td1.appendChild(a);
+
+                     var td2 = document.createElement("td");
+                     td2.appendChild(document.createTextNode(alist[3*i+1]));
+
+                     var td3 = document.createElement("td");
+                     var a = alist[3*i+1]/opener.cn*100;
+                     td3.appendChild(document.createTextNode(a.toFixed(3)+"%"));
+                     
+                     tr.appendChild(td1);
+                     tr.appendChild(td2);
+                     tr.appendChild(td3);
+
+                     insertAfter(tr,document.getElementById("cnrate1"));
+                }
+                //alert("结束");
+            };
+
+            function insertAfter(newChild, refChild){
+				var refParentNode = refChild.parentNode;
+				
+				//判断 refChild 是否存在父节点
+				if(refParentNode){
+					//判断 refChild 节点是否为其父节点的最后一个子节点
+					if(refChild == refParentNode.lastChild){
+						refParentNode.appendChild(newChild);
+					}else{
+						refParentNode.insertBefore(newChild, refChild.nextSibling);
+					}	
+				}
+			}
+        
+	</script>
+
+	</body>
+
+</html>

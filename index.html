@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>首页</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<!--兼容移动-->
+		<meta name="author" content="minhuaf" />
+		<!--作者-->
+		<meta name="description" content="" />
+		<!--网页描述-->
+		<meta name="keywords" content="" />
+		<!--关键字-->
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<!--添加图标-->
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/page.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+		<!--[if lt IE 9]>  
+   			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>  
+		<![endif]-->
+
+	</head>
+
+	<body>
+		<div id="pageloader">
+			<div class="loader-item fa fa-spin colored-border"></div>
+		</div>
+		<nav>
+			<div class="mh-container">
+				<div class="mh-verticalCenter">
+					<a href="index.html">
+						<img src="img/logo.png" />
+					</a>
+				</div>
+			</div>
+		</nav>
+		<header class="pt50">
+			<div class="navPic">
+				<div class="welcome">
+					<h2>Welcome to Character Books</h2>
+					<p>"Character book" is a character capable of statistical products,where you can also carray out a test,the test we know the number of characters.</p>
+				</div>
+			</div>
+		</header>
+
+		<div class="index mainbody">
+			<header class="headerTitle">
+				<h2>How Words You Know?</h2>
+				<p>Look how many characters you usually use, testing what you know how many characters.</p>
+			</header>
+			<section class="divAverage ">
+				<a href="articleData.html">
+					<div class="menu-1">
+					</div>
+				</a>
+				<h2>统计汉字</h2>
+				<p>Setup Dockunit on your machine, using NPM installation is quick and easy.</p>
+			</section>
+			<section class="divAverage">
+				<a id="search-icon" href="#search-overlay">
+					<div class="menu-2">
+					</div>
+				</a>
+				<h2>汉字测试</h2>
+				<p>Test-After completing a test , we can know the number of characters we know.</p>
+			</section>
+			<section class="divAverage">
+				<a href="aboutUs.html">
+					<div class="menu-3">
+					</div>
+				</a>
+				<h2>关于我们</h2>
+				<p>About us.Here we can show you all about our team and our product.</p>
+			</section>
+		</div>
+		<footer class="mh-clearfix">
+			<div class="">
+				<div class="divAverage pb10">
+					<h2>友情链接</h2>
+					<p class=""><a href="https://dockunit.io/">DOCKUNIT官网</a></p>
+					<p><a href="http://www.liangshunet.com/websoft/ji.aspx">亮术网</a></p>
+				</div>
+				<div class="divAverage pb20">
+					<h2>我们用到的技术</h2>
+					<span><a href="">html</a></span>
+					<span><a href="">css</a></span>
+					<span><a href="">javascript</a></span>
+					<span><a href="">java</a></span>
+				</div>
+				<div class="divAverage pb20">
+					<h2>开发团队</h2>
+					<p><a href="">青桔柠檬</a></p>
+				</div>
+			</div>
+			<div class="list pb30 pt20">
+				<a href="">关于我们 |</a>
+				<a href="">服务条款 |</a>
+				<a href="">用户服务协议 |</a>
+				<a href="">广告服务 |</a>
+				<a href="">客服中心 |</a>
+				<a href="">网站导航</a>
+				<p class="">Copyright © 2015 Powered By QingJuNingMeng</p>
+			</div>
+		</footer>
+		<div id="search-overlay">
+			<a href="#search-overlay" class="close-search"><i class="fa fa-times-circle"></i></a>
+			<div class="search-form-holder">
+				<h2>选择测试类型</h2>
+				<form id="search-form" action="test.html" method="">
+					<select name="" id="choose" class="menu-select">
+						<option value="0">请选择测试字数</option>
+						<option value="30">30</option>
+						<option value="60">60</option>
+						<option value="100">100</option>
+						<option value="120">120</option>
+						<option value="150">150</option>
+					</select>
+					<ul class="dowebok">
+						<li>
+							<input type="radio" name="level" value="level=0" data-labelauty="简单">
+						</li>
+						<li>
+							<input type="radio" name="level" value="level=1" data-labelauty="一般">
+						</li>
+						<li>
+							<input type="radio" name="level" value="level=2" data-labelauty="困难">
+						</li>
+					</ul>
+					<input type="button" id="bt" value="开始测试"></input>
+				</form>
+			</div>
+		</div>
+		<script>
+			window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')
+		</script>
+		<script src="js/plugins.js"></script>
+		<script src="js/main.js"></script>
+		<script type="text/javascript">
+			$(window).load(function() { // makes sure the whole site is loaded
+					$('.loader-item').fadeOut(); // will first fade out the loading animation
+					$('#pageloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+					$('body').delay(350).css({
+						'overflow-y': 'visible'
+					});
+				})
+		</script>
+		<!--单选框-->
+		<script src="js/jquery-labelauty.js"></script>
+		<script>
+			$(function(){
+			               // alert("选择测试数据");
+			                var count=0;
+			                $("#bt").click(function(){
+			                    
+			               	    if(count==0){
+			                        alert("请选择测试字数");
+			                        return false;
+			                     }
+			
+			               	     var level=$("input:radio[name='level']:checked").val();
+			                	 if(level==null){
+			                    	alert("请选择测试级别");
+			                        return false;
+			                     }
+			
+			                    var url = "test.html?count="+count+"&level="+level;
+			                   // alert(url);
+			                    location.href=url;
+			                    //window.open(encodeURI(url));
+			                    //return false;
+			                });
+			
+			                $("#choose").change(function(){
+			                    count=$("select :selected").val();
+			                });
+			            });
+						$(function() {
+							$(':input').labelauty();
+						});
+		</script>
+	</body>
+
+</html>

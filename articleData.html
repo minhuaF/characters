@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>统计文章数据</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<!--兼容移动-->
+		<meta name="author" content="minhuaf" />
+		<!--作者-->
+		<meta name="description" content="" />
+		<!--网页描述-->
+		<meta name="keywords" content="" />
+		<!--关键字-->
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<!--添加图标-->
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/page.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+		<!--[if lt IE 9]>  
+   			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>  
+		<![endif]-->
+		
+        <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+		<script type="text/javascript">
+          
+		
+		   window.onload=function(){
+			   document.getElementById("detail").onclick=function(){
+				  // alert(alist);
+				   window.open("wordFrequency.html");
+				   return false; 
+			   }
+
+			   /* document.getElementById("count").onclick=function(){
+				  // alert(alist);
+				   window.open("count.html");
+				   return false;
+			   } */
+
+			   document.getElementById("ziku").onclick=function(){
+				   //alert(level0list);
+				  // alert(level1list);
+				  // alert(level2list);
+				   window.open("wordStock.html");
+				   return false;
+			   }
+
+			   function encodeHTML(source) {
+					return source
+						.replace(/&/g, '&amp;')
+						.replace(/</g, '&lt;')
+						.replace(/>/g, '&gt;')
+						.replace(/"/, '&quote;')
+						.replace(/'/, '&#39;');
+				};
+
+				function fileSelect(e) {
+					e = e || window.event;
+					var files = this.files;
+					for (var i = 0, f; f = files[i]; i++) {
+						var reader = new FileReader();
+						 reader.readAsText(f,"gb2312"); 
+						   if(f.type!="text/plain"){
+  						        alert("请选择文件类型为.txt");
+  						        document.forms[0].reset();
+  						        statistics();
+						        return; 
+							} 
+						    reader.onload=function(file){  
+						    	
+						    	document.getElementById('tatxt').value=encodeHTML(this.result);
+						    	//下面两个不能被清空
+						    	//document.getElementById('tatxt').innerHTML=encodeHTML(this.result);
+						    	//document.getElementById('tatxt').innerText=encodeHTML(this.result);
+						    }  
+						
+					/* 	reader.onload = (function(file) {
+							return function(e) {
+								//alert(encodeHTML(this.result));
+								document.getElementById('tatxt').innerHTML=encodeHTML(this.result);
+							};
+						})(f); */
+						//读取文件内容
+						//reader.readAsText(f, "gb2312");
+						
+					}
+				};
+
+				<!--判断浏览器是否支持FileReader-->
+				function isSupportFileApi() {
+					if (window.File && window.FileList && window.FileReader && window.Blob) {
+						return true;
+					}
+					return false;
+				}
+				
+				if (isSupportFileApi()) {
+					document.getElementById('files').addEventListener('change', fileSelect, false);
+				}
+		   
+		   
+		   }
+		</script>
+	</head>
+
+	<body>
+		<nav class="nav2">
+			<div class="mh-container ">
+				<div class="mh-verticalCenter">
+					<a href="index.html">
+						<img src="img/logo.png" />
+					</a>
+				</div>
+			</div>
+		</nav>
+		<nav class="nav1">
+			<div class="mh-container">
+				<div class="mh-verticalCenter">
+					<a href="javascript:history.go(-1);">
+						<img src="img/Back-32.png" />
+					</a>
+					<p>统计</p>
+				</div>
+			</div>
+		</nav>
+		<header>
+			<div class="pt30 ">
+				<!--<img src="img/bg.png" />-->
+			</div>
+		</header>
+		<ul class="breadcrumb mh-container mt30">
+			<li><a href="index.html">首页</a></li>
+			<li><a href="">统计汉字</a></li>
+			<li>
+				<a href="#"></a>
+			</li>
+		</ul>
+		<div class="mh-container mainbody">
+			<header class="headerTitle">
+				<h2>统计汉字</h2>
+				<p>Statistical-Statistics data of Chinese characters in this paper</p>
+			</header>
+		</div>
+		<section class="mh-container  pl15 pr15">
+			
+			<div class="divAverage50 textareaArea mt20">
+				<h2>
+					输入相关文章
+					<p>Enter the article</p>
+				<hr style="width: 50px;float: right;"/>
+				</h2>
+				<form action="" method="post" >
+
+					<textarea id="tatxt" name="" rows="17" cols="62" class="mt20"></textarea>
+					<input type="file" class="button" id="files" value="上传文件"  accept="text/*" onchange="selectFile(this)"/>
+					<input type="button" class="button button-active" value="重置" title="清空文本" onclick="document.forms[0].reset();statistics();"/>
+					<input type="button" class="button button-active" value="统计" onclick="statistics()" />
+				</form>
+			</div>
+			<div class="divAverage50 mesgArea mt20">
+				<h2>
+					统计结果
+					<p>The statistical results</p>
+				<hr style="width: 50px;float: left;"/>
+				</h2>
+				<div class="mt20 mh-tl">
+					<div class=" result mb10">
+						<p>总字数</p>
+						<p id="total">0</p>
+					</div>
+					<div class=" result mb10">
+						<p>净字数(不含空格)</p>
+						<p id="totNoSpace">0</p>
+					</div>
+					<div class=" result mb10">
+						<p>中文字符</p>
+						<p id="cnText">0</p>
+					</div>
+					<div class=" result mb10">
+						<p>中文符号</p>
+						<p id="cnPunc">0</p>
+					</div>
+					<div class=" result mb10">
+						<p>不重复字数</p>
+						<p id="count">0</p>
+					</div>
+					<br />
+					<div class="">
+						<table border="" cellspacing="" cellpadding="" class="w-h-100 mt10">
+							<tr id="cnrate">
+								<th class="mh-tc" style="width: 20%;">汉字</th>
+								<th class="mh-tc" style="width: 20%;">字频</th>
+								<th class="mh-tc" style="width: 20%;">百分比</th>
+							</tr>
+
+							<tr>
+								<td class="">(无)</td>
+								<td class="">0</td>
+								<td class="">0%</td>
+							</tr>
+							<tr>
+								<td class=" "></td>
+								<td class=" "></td>
+								<td class=" "></td>
+							</tr>
+							<tr>
+								<td class=" "></td>
+								<td class=" "></td>
+								<td class=" "></td>
+							</tr>
+							<tr>
+								<td class="" colspan="3"><a id="detail" href="wordFrequency.html" class="more">查看更多</a></td>
+							</tr>
+						</table>
+					</div>
+					<div class="">
+						<table border="" cellspacing="" cellpadding="" class="w-h-100 mt10">
+							<tr>
+								<th class="mh-tc " style="width: 20%;">字库</th>
+								<th class="mh-tc " style="width: 20%;">总数</th>
+								<th class="mh-tc " style="width: 60%;">备注</th>
+							</tr>
+
+							<tr>
+								<td class=" ">零级</td>
+								<td class=" " id="le0">0</td>
+								<td class=" " rowspan="3"><a id="ziku" href="wordStock.html" class="more">查看更多</a></td>
+							</tr>
+							<tr>
+								<td class=" ">一级</td>
+								<td class=" " id="le1">0</td>
+							</tr>
+							<tr>
+								<td class=" ">二级</td>
+								<td class=" " id="le2">0</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<h2 class="mt60 mb10" style="font-size: 16px;color: #03739C;font-weight: bold;">在线字数统计帮助：</h2>
+			<p class="mb7">
+				1 . 普通统计：把待统计字数的文本复制到文本框中，立即在右边显示统计结果（包括总字数，中文汉字与标点总数，英文单词、字母与标点总数，数字、行数等）
+			</p>
+			<p  class="mb7">
+				2 . 统计指定字符：在“指定统计字符”右边输入要统计的文字（词组），多个可以用逗号,隔开。例如，字数计算器,查字数，然后单击“统计”，则显示统计结果。
+			</p>
+			<p  class="mb7">
+				3 . 仅统计指定字符：如果勾选“仅统计指定字符”，则不统计“总字数”到“其它字符”的常规统计项，指定字符比较多的时候，建议勾选。
+			</p>
+
+		</section>
+		<footer class="mh-clearfix">
+			<div class="">
+				<div class="divAverage pb10">
+					<h2>友情链接</h2>
+					<p class=""><a href="https://dockunit.io/">DOCKUNIT官网</a></p>
+					<p><a href="http://www.liangshunet.com/websoft/ji.aspx">亮术网</a></p>
+				</div>
+				<div class="divAverage pb20">
+					<h2>我们用到的技术</h2>
+					<span><a href="">html</a></span>
+					<span><a href="">css</a></span>
+					<span><a href="">javascript</a></span>
+					<span><a href="">java</a></span>
+				</div>
+				<div class="divAverage pb20">
+					<h2>开发团队</h2>
+					<p><a href="">青桔柠檬</a></p>
+				</div>
+			</div>
+			<div class="list pb30 pt20">
+				<a href="">关于我们 |</a>
+				<a href="">服务条款 |</a>
+				<a href="">用户服务协议 |</a>
+				<a href="">广告服务 |</a>
+				<a href="">客服中心 |</a>
+				<a href="">网站导航</a>
+				<p class="">Copyright © 2015 Powered By QingJuNingMeng</p>
+			</div>
+		</footer>
+
+	</body>
+	<script type="text/javascript" src="js/level.js"></script>
+	<script type="text/javascript">
+	 
+           var join;
+           var alist;
+           var cn;
+           var level0;
+           var level1;
+           var level2;
+           var level0list;
+           var level1list;
+           var level2list;
+           var level0count;
+           var level1count;
+           var level2count;
+
+           $(function(){
+			   //alert("服务器字库加载...");
+	              /* $.post("loadziku","level=0",function(data){
+	                   // alert("level0-->");
+	                    level0 = data.split(",");
+	                    level0count = level0.length/2;
+	                   // alert(level0count);
+	                    
+	              });
+
+	              $.post("loadziku","level=1",function(data){
+	                   // alert("leve1l-->");
+	                    level1 = data.split(",");
+	                    level1count = level1.length*2;
+	                   // alert(level1);
+	              });
+
+	              $.post("loadziku","level=2",function(data){
+	                   // alert("level2-->");
+	                    level2 = data.split(",");
+	                    level2count = level2.length*2;
+	                    //alert(level2);
+	              });  */
+	               level0=level0().split(",");
+	               level1=level1().split(",");
+	               level2=level2().split(",");
+	               level0count = level0.length/2;
+	               level0count = level1.length/2;
+	               level0count = level2.length/2;
+		   });
+		   
+			if (!Array.indexOf) {  
+			    Array.prototype.indexOf = function (obj) {  
+			        for (var i = 0; i < this.length; i++) {  
+			            if (this[i] == obj) {  
+			                return i;  
+			            }  
+			        }  
+			        return -1;  
+			    }  
+			}  
+
+			/* var $ = function(id) {
+		        return ("string" == typeof(id)) ? document.getElementById(id) : id;
+		    }; */
+
+            function contains(arr, s){
+            	 for (var i = 0; i < arr.length; i++) {  
+			            if (arr[i][0] == s) {  
+			                return i;  
+			            }  
+			     }
+			     return -1;  
+            }
+
+		    function whichlevel(level, c){
+				for (var i = 0; i < level.length/2; i++) {  
+		            if (level[2*i+1] == c) {  
+		                return 1;  
+		            }  
+		        }
+		        return 0 ;
+		    }
+
+		    //核心函数
+			function statistics() {
+                 var text = document.getElementById("tatxt").value;
+                // alert(text);
+                
+                 var total=0,
+                 totNoSpa=0,
+                 cnPunc=0,
+                 rline=0,
+                 enlet=0,
+                 enPunc=0,
+                 num=0,
+                 other=0,
+                 le0=0,
+                 le1=0,
+                 le2=0;
+                 
+                 var uc;
+                 alist=new Array();
+                 level0list = new Array();
+                 level1list = new Array();
+                 level2list = new Array();
+                 cn=0;
+                 for (var i = 0; i < text.length; i++) {
+                     uc=text.charCodeAt(i);
+                     total++;
+                     if (uc >= 19968 && uc <= 40891) {
+                         cn++;
+                         var a = contains(alist,uc);
+                         if(a!=-1){
+                             alist[a][1]++;
+                         }else{
+                             alist.push(new Array(uc,1,text[i]));
+                             if(whichlevel(level0,uc)==1){
+                                 le0++;
+                                 level0list.push(text[i]);
+                             }
+                             if(whichlevel(level1,uc)==1){
+                                 le1++;
+                                 level1list.push(text[i]);
+                             }
+                             if(whichlevel(level2,uc)==1){
+                                 le2++;
+                                 level2list.push(text[i]);
+                             }
+                             /* le0 = le0 + whichlevel(level0,uc);
+                             le1 = le1 + whichlevel(level1,uc);
+                             le2 = le2 + whichlevel(level2,uc); */                                                   
+                         }
+                     } else if (uc == 12288 || uc == 32) {
+                         totNoSpa++;
+                     } else if (CnPunctuation(uc)) {
+                         cnPunc++;
+                     } else if (uc == 10) {
+                         rline++;
+                     } else if ((uc >= 97 && uc <= 122) || (uc >= 65 && uc <= 90)) {
+                         enlet++;
+                     } else if (uc >= 48 && uc <= 57) {
+                         num++;
+                     } else if (EnPunctuation(uc)) {
+                         enPunc++;
+                     } else {
+                         other++;
+                     }
+                 }
+                 total = total - rline;
+                 totNoSpa = total - totNoSpa - enlet - num - other;
+                 
+                 document.getElementById("total").innerHTML = total;
+                 document.getElementById("totNoSpace").innerHTML = totNoSpa;
+                 document.getElementById("cnText").innerHTML = cn;
+                 document.getElementById("cnPunc").innerHTML = cnPunc;
+                 document.getElementById("le0").innerHTML = le0;
+                 document.getElementById("le1").innerHTML = le1;
+                 document.getElementById("le2").innerHTML = le2;
+
+               /*   var anodes = document.getElementById("a").childNodes;
+                 alert(anodes.length);
+                 if(anodes.length!=2){
+                     for(var i=1;i<anodes.length-1;i++){
+                         document.getElementById("a").removeChild(anodes[i]);
+                         alert("删除"+anodes[i]);
+                     }
+                 } */
+
+                 var tds = document.getElementsByTagName("td");
+                 var len = Math.min(alist.length,3);
+
+                 tds[0].innerHTML="(无)";
+                 tds[1].innerHTML="0";
+                 tds[2].innerHTML="0%";
+                 for(var i=3; i<9;i++){
+                	 tds[i].innerHTML="";
+                 }
+                 for(var i=0; i<len;i++){
+                     //tds[i*2].appendChild(document.createTextNode(alist[i][2]));
+                     //tds[i*2+1].appendChild(document.createTextNode(alist[i][1]));
+                     
+                	 tds[i*3].innerHTML=alist[i][2];
+                     tds[i*3+1].innerHTML=alist[i][1];
+                     var bai = alist[i][1]/cn*100;
+                     tds[i*3+2].innerHTML=bai.toFixed(3)+"%";
+                 }
+                 document.getElementById("count").innerHTML = alist.length;
+
+                 /* var len = Math.min(alist.length,3);
+                 var innerh="";
+                 for(var i=0; i<len;i++){
+                     var tr = document.createElement("tr");
+                     var td1 = document.createElement("td");
+                     td1.appendChild(document.createTextNode(alist[i][2]))
+                     td1.setAttribute("class", "tc");
+
+                     var td2 = document.createElement("td");
+                     td2.appendChild(document.createTextNode(alist[i][1]))
+                     td2.setAttribute("class", "tc");
+
+                     tr.appendChild(td1);
+                     tr.appendChild(td2);
+
+                     
+                     insertAfter(tr,document.getElementById("cnrate"));
+                 }   */
+               
+                // alert("total:"+total+";  cn:"+cn+";  totNoSpa:"+totNoSpa+";  cnPunc:"+cnPunc);
+             
+                 //alert(alist.join());
+                // alert(le0);
+                // alert(le1);
+                // alert(le2);
+                //alert(level0list);
+                 join=alist.join();
+                 level0list = level0list.join();
+                 level1list = level1list.join();
+                 level2list = level2list.join();
+                 
+			}
+
+			function CnPunctuation(s) {
+	            var arr = new Array(65292, 8220, 8221, 8230, 12289, 12296, 12297, 65311, 65306, 65307, 12298, 12299, 12300, 12301, 12302, 12303, 12304, 12305, 12308, 12309, 65281, 65288, 12290, 215, 8211, 8212, 8216, 8217, 183, 65289, 65294);
+	            return Puctuations(s, arr);
+	        }
+
+			function EnPunctuation(s) {
+	            var arr = new Array(46, 44, 58, 59, 63, 33, 34, 39, 46, 46, 46, 45, 40, 41, 40, 41, 91, 93, 123, 125, 47, 65374, 168);
+	            return Puctuations(s, arr);
+	        }
+	        
+			function Puctuations(s, arr) {
+	            var val = false;
+	            for (var i = 0; i < arr.length; i++) {
+	                if (s == arr[i]) {
+	                    val = true;
+	                    break;
+	                }
+	            }
+	            return val;
+	        }
+		    
+			if (/msie/i.test(navigator.userAgent)) //ie浏览器 
+			{
+			    document.getElementById('tatxt').onpropertychange = statistics;
+			} else {                     //非ie浏览器，比如Firefox 
+			    document.getElementById('tatxt').addEventListener("input", statistics, false);
+			    document.getElementById('tatxt').watch('a', fn);
+			}
+
+			
+		</script>
+
+</html>

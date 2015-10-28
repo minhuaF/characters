@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>识字测试</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<!--兼容移动-->
+		<meta name="author" content="minhuaf" />
+		<!--作者-->
+		<meta name="description" content="" />
+		<!--网页描述-->
+		<meta name="keywords" content="" />
+		<!--关键字-->
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<!--添加图标-->
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/page.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+		<!--[if lt IE 9]>  
+   			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>  
+		<![endif]-->
+
+        <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+	</head>
+
+	<body>
+		<nav class="nav2">
+			<div class="mh-container ">
+				<div class="mh-verticalCenter">
+					<a href="index.html">
+						<img src="img/logo.png" />
+					</a>
+				</div>
+			</div>
+		</nav>
+		<nav class="nav1">
+			<div class="mh-container">
+				<div class="mh-verticalCenter">
+					<a href="javascript:history.go(-1);">
+						<img src="img/Back-32.png" />
+					</a>
+					<p>测试</p>
+				</div>
+			</div>
+		</nav>
+		<header>
+			<div class="pt50 ">
+				<!--<img src="img/bg.png" />-->
+			</div>
+		</header>
+		<ul class="breadcrumb mh-container mt30">
+			<li><a href="index.html">首页</a></li>
+			<li><a href="">识字测试</a></li>
+			<li>
+				<a href="#"></a>
+			</li>
+		</ul>
+		<div class="mh-container mainbody">
+			<header class="headerTitle">
+				<h2>测试所认识的汉字数</h2>
+				<p>Test-After completing a test , we can know the number of characters we know.</p>
+			</header>
+			<section class="mt25 test" >
+				<div class="divAverage50 textareaArea mt20">
+				<h2>
+					测试的字
+					<p>Enter the article</p>
+				<hr style="width: 50px;float: right;"/>
+				</h2>
+				<form action="" method="post" class="mh-fr">
+					<div class="word mt20" >
+						<span class="num" id="word">你</span>
+					</div>
+				    <div id="k3"></div>
+					<div class="mh-tr">
+					<input type="button" class="button button-active" id="n" value="不认识" />
+					<input type="button" class="button button-active" id="y" value="认识" />
+					</div>
+				</form>
+			</div>
+			<div class="divAverage50 mesgArea mt20">
+				<h2>
+					测试结果
+					<p>The statistical results</p>
+				<hr style="width: 50px;float: left;"/>
+				</h2>
+				<div class="mt20 mh-tl">
+					<section>
+						<h3>认识的字<span id="k1"></span></h3>
+						<div class="know" id="know">
+							<a href="" class="list-a"><span>(无)</span></a>
+						</div>
+					</section>
+					
+					<section class="mt15">
+						<h3>不认识的字<span id="k2"></span></h3>
+						<div class="know" id="unknow">
+							<a href="" class="list-a"><span>(无)</span></a>
+						</div>
+					<section class="mt15" >
+						<h3>识字率</h3>
+						<span id="k4">0%</span>
+					</section>
+					
+				</div>
+			</section>
+		</div>
+		<footer class="mh-clearfix">
+				<div class="">
+					<div class="divAverage pb10">
+						<h2>友情链接</h2>
+						<p class=""><a href="https://dockunit.io/">DOCKUNIT官网</a></p>
+						<p><a href="http://www.liangshunet.com/websoft/ji.aspx">亮术网</a></p>
+					</div>
+					<div class="divAverage pb20">
+						<h2>我们用到的技术</h2>
+						<span><a href="">html</a></span>
+						<span><a href="">css</a></span>
+						<span><a href="">javascript</a></span>
+						<span><a href="">java</a></span>
+					</div>
+					<div class="divAverage pb20">
+						<h2>开发团队</h2>
+						<p><a href="">青桔柠檬</a></p>
+					</div>
+				</div>
+				<div class="list pb30 pt20">
+					<a href="">关于我们 |</a>
+					<a href="">服务条款 |</a>
+					<a href="">用户服务协议 |</a>
+					<a href="">广告服务 |</a>
+					<a href="">客服中心 |</a>
+					<a href="">网站导航</a>
+					<p class="">Copyright © 2015 Powered By QingJuNingMeng</p>
+				</div>
+			</footer>
+
+	</body>
+	<script type="text/javascript">
+				var aA = document.getElementsByClassName("list-a");
+				for (var i = 0; i < aA.length; i++) {
+					aA[i].onmousedown = function() {
+						this.style.backgroundColor = '#4cabd9';
+						this.style.color = '#ffffff';
+					}
+				}
+			</script>
+			<script type="text/javascript" src="js/level.js"></script>
+	<script type="text/javascript">
+		var levels;
+        var alist;
+        var index=0;
+        var count;
+        var know = new Array();
+        var unknow = new Array();
+         
+	    function getQueryString(name){
+		     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		     var r = window.location.search.substr(1).match(reg);
+		     if(r!=null){
+			      return unescape(r[2]); 
+		     }
+		     return null;
+		}
+
+		window.onload=function(){
+			//alert(location.search);
+			count = getQueryString("count");
+	        var level = getQueryString("level");
+		   /*  if(count!=null){
+	            alert("count-->"+count);
+			}
+			if(level!=null){
+	 			alert("level-->"+level);
+		    } */
+            //alert(level);
+
+		     
+			// $.post("loadziku",level,function(data){
+                 //alert("加载字库..");
+                 var data;
+                 if(level=="level=0"){
+                     data=level0();
+                     } else if(level=="level=1"){
+                      data=level1();
+                         }else if(level=="level=2"){
+                          data=level2();
+                             }
+                 //alert(data);
+                 var templevel;
+                 templevel = data.split(",");
+                 levels = new Array();
+                 for(var i=0;i<templevel.length/2;i++){
+                     levels.push(templevel[2*i]);
+                 } 
+                 //alert(levels);
+                // alert(levels.length);
+			     //alert(Math.floor(Math.random()*levels.length/2));
+			     
+			     alist = new Array();
+			     for(var i=0;i<count;i++){
+			    	 var a = Math.floor(Math.random()*levels.length);
+			    	 var b=1;
+			    	 for(var j=0;j<alist.length;j++){
+    			    	 if(levels[a]==alist[j]){
+        			    	  b=0;
+                              break;
+        			     }	     
+				     }
+				     if(b==1){
+					     alist.push(levels[a]);    
+					 }else{
+                         i--;
+					 }
+				 }
+				 //alert(alist);
+				 //alert(alist.length);
+
+			     document.getElementById("word").innerHTML=alist[index]; 
+			     document.getElementById("k3").innerHTML="(1/"+count+")";
+			     document.getElementById("k1").innerHTML="(0/"+count+")";
+			     document.getElementById("k2").innerHTML="(0/"+count+")";
+			     document.getElementById("k4").innerHTML="0%";
+              
+			     
+			     
+          //  });
+
+            function resultAndRank(){
+                if(index==count){
+                 var result = know.length/count*100;
+   			     var rank;
+   			     switch(Math.floor(result/20)){
+   			      case 0:
+   			          rank="文盲";
+   			          break;
+   			      case 1:
+   			          rank="学渣";
+   			          break;
+   			      case 2:
+   			          rank="学酥";
+   			          break;
+   			      case 3:
+   				      rank="学徒";
+   			          break;
+   			      case 4:
+   			          rank="学霸";
+   			          break;
+   			      case 5:
+   				      rank="学神";
+   			          break;
+   			    }
+                   alert("测试完毕！亲，你的成绩是"+result.toFixed(3)+"%,属于"+rank+"级别\(^o^)/~");
+                   $("#y,#n").unbind("click");
+                   $("#y,#n").attr("class","button");
+                   
+                   //alert("onclick失效");
+                   //location.reload();
+				 }else{
+					 document.getElementById("word").innerHTML=alist[index];
+				     document.getElementById("k3").innerHTML="("+(index+1)+"/"+count+")";
+			     }
+            	 
+            }
+
+
+            $("#y").click(function(){
+
+                 $("#know").empty();
+                 know.push(alist[index]);
+                 index++; 
+                 //<a href="#" target="_blank" class="list-a"><span>(无)</span></a>
+                 for(var i=0;i<know.length;i++){
+                      var span = document.createElement("span");
+                      span.appendChild(document.createTextNode(know[i]));
+                      
+                	  var a = document.createElement("a");
+	                  a.setAttribute("class", "list-a");
+	                  a.setAttribute("href", "http://dict.baidu.com/s?wd="+know[i]);
+	                  a.setAttribute("target", "_blank");
+	                  a.appendChild(span);
+                     
+                      document.getElementById("know").appendChild(a);
+                      
+                 }
+                 
+                 document.getElementById("k1").innerHTML="("+know.length+"/"+count+")";
+                 var shilv = know.length/count*100;
+			     document.getElementById("k4").innerHTML=shilv.toFixed(3)+"%";
+
+			   
+				 resultAndRank();
+				
+            });
+
+            $("#n").click(function(){
+               // alert("n");
+                $("#unknow").empty();
+                unknow.push(alist[index]);
+                index++;  
+                for(var i=0;i<unknow.length;i++){
+                      var span = document.createElement("span");
+                      span.appendChild(document.createTextNode(unknow[i]));
+
+                      var a = document.createElement("a");
+	                  a.setAttribute("class", "list-a");
+	                  a.setAttribute("href", "http://dict.baidu.com/s?wd="+unknow[i]);
+	                  a.setAttribute("target", "_blank");
+	                  a.appendChild(span);
+                      document.getElementById("unknow").appendChild(a);
+                    
+               }
+                document.getElementById("k2").innerHTML="("+unknow.length+"/"+count+")";
+
+				resultAndRank();
+				
+           });
+            
+		    
+		}
+
+        
+	</script>
+
+</html>
